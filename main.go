@@ -4,24 +4,22 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"embed"
-    "github.com/DemiAina/Anime-Wallpaper-API/server/render"
+    "strings"
 )
 
-// go:embed dist/
-var embeddedFiles embed.FS
-
 func main() {
-var port = ":8000"
-http.Handle("/", http.FileServer(http.Dir("dist")))
-http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
-		err := render.RenderTemplate(embeddedFiles, w, r, "about.html")
-		if err != nil {
-			fmt.Println("ERROR: cannot render", err)
+	port := ":8000"
+	fs := http.FileServer(http.Dir("dist"))
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// Check if the request path ends with ".js"
+		if strings.HasSuffix(r.URL.Path, ".js") {
+			// Set the MIME type to "application/javascript" for JS files
+			w.Header().Set("Content-Type", "application/javascript")
 		}
+		fs.ServeHTTP(w, r)
 	})
 
 	fmt.Printf("Serving at http://localhost%s\n", port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }
-

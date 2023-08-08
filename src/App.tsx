@@ -1,28 +1,15 @@
 import './App.css'
-
-// function upload_image(){
-//     
-// }
-
+import { lazy, Suspense } from 'react'
+import { Routes, Route } from 'react-router-dom'
+const Index = lazy(() => import('./Pages/index'))
 function App() {
-
   return (
     <>
-    <div>
-        <div>
-            <img id = "hero_image" src="/71XtBFClyOL.jpg"/>
-        </div>
-        <form >
-        </form>
-        // <ul id = "upload">
-        // <li>
-        //     Upload
-        // </li>
-        // <li>
-        //     View images
-        // </li>
-        // </ul>
-    </div>
+    <Suspense>
+        <Routes>
+            <Route path='/' element={<Index/>}/>
+        </Routes>
+    </Suspense>
     </>
   )
 }
