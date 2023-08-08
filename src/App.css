@@ -1,0 +1,26 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#upload{
+    display: flex;
+    justify-content: space-between;
+    padding:0;
+}
+
+#hero_image{
+    height: 256px;
+    width: 256px;
+}
+
+li{
+    list-style: none;
+}
+
+ul li{
+    margin : 1rem;
+}
+
+
+
